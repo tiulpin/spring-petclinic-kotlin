@@ -1,73 +1,38 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-
-description = "Kotlin version of the Spring Petclinic application"
+description = "Kotlin version of the Ktor Petclinic application"
 group = "org.springframework.samples"
-// Align with Spring Version
-version = "3.3.0"
+version = "1.0.0"
 
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 plugins {
-    val kotlinVersion = "2.0.21"
-    id("org.springframework.boot") version "3.3.4"
-    id("io.spring.dependency-management") version "1.1.6"
-    id("com.google.cloud.tools.jib") version "3.4.4"
+    val kotlinVersion = "1.5.31"
+    id("io.ktor.plugin") version "3.0.0"
     kotlin("jvm") version kotlinVersion
-    kotlin("plugin.spring") version kotlinVersion
+    kotlin("plugin.serialization") version kotlinVersion
 }
 
-// WebJars versions are also referenced in src/main/resources/templates/fragments/layout.html for resource URLs
-val boostrapVersion = "5.3.3"
-val fontAwesomeVersion = "4.7.0"
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("io.ktor:ktor-server-core:3.0.0")
+    implementation("io.ktor:ktor-server-netty:3.0.0")
+    implementation("io.ktor:ktor-serialization:3.0.0")
+    implementation("ch.qos.logback:logback-classic:1.2.6")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    testImplementation("io.ktor:ktor-server-tests:3.0.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+}
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         jvmTarget = "17"
-        freeCompilerArgs = listOf("-Xjsr305=strict")
     }
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-
-repositories {
-    mavenCentral()
-    maven { url = uri("https://repo.spring.io/snapshot") }
-    maven { url = uri("https://repo.spring.io/milestone") }
-}
-
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-cache")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.glassfish.jaxb:jaxb-runtime")
-    implementation("javax.cache:cache-api")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.webjars.npm:bootstrap:$boostrapVersion")
-    implementation("org.webjars.npm:font-awesome:$fontAwesomeVersion")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-webflux")
-    testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-
-    runtimeOnly("com.h2database:h2")
-    runtimeOnly("com.mysql:mysql-connector-j")
-
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-    implementation(kotlin("stdlib-jdk8"))
-}
-
-jib {
-    to {
-        image = "springcommunity/spring-petclinic-kotlin"
-        tags = setOf(project.version.toString(), "latest")
-    }
-}
-

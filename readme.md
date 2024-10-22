@@ -1,4 +1,4 @@
-# Kotlin version of the Spring PetClinic Sample Application
+# Kotlin version of the Ktor PetClinic Sample Application
 [![Java CI with Gradle](https://github.com/spring-petclinic/spring-petclinic-kotlin/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/spring-petclinic/spring-petclinic-kotlin/actions/workflows/gradle-build.yml)
 [![Docker pulls](https://img.shields.io/docker/pulls/springcommunity/spring-petclinic-kotlin.svg)](https://hub.docker.com/repository/docker/springcommunity/spring-petclinic-kotlin)
 
@@ -7,11 +7,11 @@ This is a [Kotlin](https://kotlinlang.org/) version of the [spring-petclinic][] 
 ## Technologies used
 
 * Language: Kotlin
-* Core framework: Spring Boot 3 with Spring Framework 6 Kotlin support
-* Server: Apache Tomcat
-* Web framework: Spring MVC
+* Core framework: Ktor
+* Server: Netty
+* Web framework: Ktor
 * Templates: Thymeleaf and Bootstrap 5
-* Persistence : Spring Data JPA
+* Persistence : Exposed
 * Databases: H2 and MySQL both supported
 * Build: Gradle Script with the Kotlin DSL
 * Testing: Junit 5, Mockito and AssertJ
@@ -23,7 +23,7 @@ This is a [Kotlin](https://kotlinlang.org/) version of the [spring-petclinic][] 
 ```
 git clone https://github.com/spring-petclinic/spring-petclinic-kotlin.git
 cd spring-petclinic-kotlin
-./gradlew bootRun
+./gradlew run
 ```
 
 ### With Docker
@@ -63,7 +63,6 @@ Further documentation is provided [here](https://github.com/spring-projects/spri
 |The Main Class                      | [PetClinicApplication](https://github.com/spring-petclinic/spring-petclinic-kotlin/blob/master/src/main/kotlin/org/springframework/samples/petclinic/PetClinicApplication.kt) |
 |Properties configuration file       | [application.properties](https://github.com/spring-petclinic/spring-petclinic-kotlin/blob/master/src/main/resources) |
 |Gradle build script with Kotlin DSL | [build.gradle.kts](https://github.com/spring-petclinic/spring-petclinic-kotlin/blob/master/build.gradle.kts) |
-|Caching Configuration               | [CacheConfig](https://github.com/spring-petclinic/spring-petclinic-kotlin/blob/master/src/main/kotlin/org/springframework/samples/petclinic/system/CacheConfig.kt) |
 
 
 ## Import and run the project in IntelliJ IDEA
